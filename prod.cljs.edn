@@ -1,0 +1,3 @@
+{:main identity.core
+ :output-to "target/public/js/app.js"
+ :optimizations :advanced}

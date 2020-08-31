@@ -1,0 +1,4 @@
+{:main identity.core
+ :output-to "target/public/js/app.js"
+ :output-dir "target/public/js"
+ :asset-path "js"}
