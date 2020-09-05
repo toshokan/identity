@@ -8,6 +8,7 @@
                  [com.bhauman/rebel-readline "0.1.4"]
                  [reagent "1.0.0-alpha2"]
                  [re-frame "1.1.1"]
+                 [day8.re-frame/http-fx "0.2.1"]
                  [compojure "1.6.2"]
                  [hiccup "1.0.5"]
                  [ring/ring-core "1.7.1"]
