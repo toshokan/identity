@@ -14,7 +14,7 @@
      [:meta {:charset "utf-8"}]
      [:title "Identity"]]
     [:body
-     [:div#challenge {:hidden true} challenge]
+     [:input#challenge {:type "hidden" :value challenge}]
      [:div#root]
      (include-js "js/app.js")]]))
 
