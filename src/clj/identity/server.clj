@@ -6,14 +6,14 @@
             [ring.util.response :as r]
             [hiccup.page :refer [html5 include-js]]))
 
-(def home-page
+(def home-page [challenge]
   (html5
    [:html
     [:head
      [:meta {:charset "utf-8"}]
      [:title "Identity"]]
     [:body
-     [:div {:hidden true}]
+     [:div {:hidden true} challenge]
      [:div#root]
      (include-js "js/app.js")]]))
 
