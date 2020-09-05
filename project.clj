@@ -11,6 +11,7 @@
                  [day8.re-frame/http-fx "0.2.1"]
                  [compojure "1.6.2"]
                  [cheshire "5.10.0"]
+                 [clj-http "3.10.1"]
                  [hiccup "1.0.5"]
                  [ring/ring-core "1.7.1"]
                  [ring/ring-jetty-adapter "1.7.1"]]
