@@ -3,6 +3,7 @@
   (:require [compojure.core :refer :all]
             [ring.middleware.content-type :refer [wrap-content-type]]
             [ring.middleware.resource :refer [wrap-resource]]
+            [ring.middleware.params :refer [wrap-params]]
             [ring.util.response :as r]
             [hiccup.page :refer [html5 include-js]]))
 
@@ -24,4 +25,5 @@
   (-> app
       (wrap-resource "public")
       (wrap-content-type)
+      (wrap-params)
       (run-jetty {:port 8001})))
