@@ -6,7 +6,7 @@
             [ring.util.response :as r]
             [hiccup.page :refer [html5 include-js]]))
 
-(def home-page [challenge]
+(defn home-page [challenge]
   (html5
    [:html
     [:head
@@ -18,7 +18,7 @@
      (include-js "js/app.js")]]))
 
 (defroutes app
-  (GET "/" [] home-page))
+  (GET "/" [challenge] (home-page challenge)))
 
 (defn start []
   (-> app
