@@ -8,7 +8,7 @@
 (rf/reg-event-db
  :init
  (fn [_ _]
-   {}))
+   {:challenge (.value (.getElementById js/document "challenge"))}))
 
 (defn mount-root []
   (let [element (.getElementById js/document "root")]

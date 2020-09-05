@@ -13,7 +13,7 @@
      [:meta {:charset "utf-8"}]
      [:title "Identity"]]
     [:body
-     [:div {:hidden true} challenge]
+     [:div#challenge {:hidden true} challenge]
      [:div#root]
      (include-js "js/app.js")]]))
 
