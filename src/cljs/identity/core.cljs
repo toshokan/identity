@@ -3,12 +3,19 @@
             [re-frame.core :as rf]))
 
 (defn startup []
-  [:div [:h2 "Identity"]])
+  [:div [:h2 "Identity"]
+   [:p @(rf/subscribe [:challenge-value])]])
 
 (rf/reg-event-db
  :init
  (fn [_ _]
-   {:challenge (.value (.getElementById js/document "challenge"))}))
+   (let [element (.getElementById js/document "challenge")]
+     {:challenge (.-value element)})))
+
+(rf/reg-sub
+ :challenge-value
+ (fn [db _]
+   (:challenge db)))
 
 (defn mount-root []
   (let [element (.getElementById js/document "root")]
