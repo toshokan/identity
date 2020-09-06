@@ -10,7 +10,7 @@
      [:div "The requested scopes are:"]
      [:ul
       (for [scope (clojure.string/split (:scope challenge-info) #" ")]
-        [:li scope])]
+        [:li {:key scope} scope])]
      [:br]
      [:form {:method "post"}
       [:input {:name "user-id" :placeholder "Username"}]
