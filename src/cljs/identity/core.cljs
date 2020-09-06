@@ -3,9 +3,17 @@
             [re-frame.core :as rf]
             [cljs.reader :refer [read-string]]))
 
+(defn login-component []
+  [:form {:method "post"}
+   [:label "Name"
+    [:input {:name "user-id"}]]
+   [:label "Password"
+    [:input {:name "password" :type "password"}]]
+   [:button "Submit"]])
+
 (defn startup []
   [:div [:h2 "Identity"]
-   [:p @(rf/subscribe [:challenge-id])]])
+   (login-component)])
 
 (rf/reg-event-db
  :init
