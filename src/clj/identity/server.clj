@@ -20,16 +20,34 @@
      [:div#root]
      (include-js "js/app.js")]]))
 
-(defn challenge-info [challenge]
-  (some-> (str "http://localhost:8001/oauth/v1/challenge/" challenge)
+(defn challenge-info [challenge-id]
+  (some-> (str "http://localhost:8001/oauth/v1/challenge/" challenge-id)
           (h/get {:accept :json})
           :body
           (json/parse-string true)))
 
+(defn- reply-challenge [challenge-id reply]
+  (some-> (str "http://localhost:8001/oauth/v1/challenge/" challenge-id)
+          (h/post {:body reply
+                   :content-type :json})
+          :body
+          (json/parse-string true)))
+
+(defn accept-challenge [challenge-id]
+  (reply-challenge challenge-id "\"Accept\""))
+
+(defn reject-challenge [challenge-id]
+  (reply-challenge challenge-id "\"Reject\""))
+
 (defroutes app
-  (GET "/" [challenge]
-       (let [info (challenge-info challenge)]
-         (home-page info))))
+  (GET "/login" [challenge-id]
+       (let [info (challenge-info challenge-id)]
+         (home-page info)))
+  (POST "/login" [challenge-id user-id password :as r]
+        (let [response (if (= user-id password)
+                         (accept-challenge challenge-id)
+                         (reject-challenge challenge-id))]
+          (r/redirect (:RedirectTo response) :temporary-redirect))))
 
 (defn start []
   (-> app
