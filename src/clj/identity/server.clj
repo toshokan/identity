@@ -1,7 +1,7 @@
 (ns identity.server
   (:use ring.adapter.jetty)
   (:require [compojure.core :refer :all]
-            [ring.middleware.content-type :refer [wrap-content-type]]
+            ;; [ring.middleware.content-type :refer [wrap-content-type]]
             [ring.middleware.resource :refer [wrap-resource]]
             [ring.middleware.params :refer [wrap-params]]
             [ring.util.response :as r]
@@ -40,6 +40,8 @@
   (reply-challenge challenge-id "\"Reject\""))
 
 (defroutes app
+  (GET "/failure" []
+       (r/response "That didn't work"))
   (GET "/login" [challenge-id]
        (let [info (challenge-info challenge-id)]
          (home-page info)))
@@ -47,11 +49,11 @@
         (let [response (if (= user-id password)
                          (accept-challenge challenge-id)
                          (reject-challenge challenge-id))]
-          (r/redirect (:RedirectTo response) :temporary-redirect))))
+          (r/redirect (:RedirectTo response) :see-other))))
 
 (defn start []
   (-> app
       (wrap-resource "public")
-      (wrap-content-type)
+      ;; (wrap-content-type)
       (wrap-params)
       (run-jetty {:port 8002})))
