@@ -21,13 +21,13 @@
      (include-js "js/app.js")]]))
 
 (defn challenge-info [challenge-id]
-  (some-> (str "http://localhost:8001/oauth/v1/challenge/" challenge-id)
+  (some-> (str "http://localhost:8001/oauth/v1/challenge-info/" challenge-id)
           (h/get {:accept :json})
           :body
           (json/parse-string true)))
 
 (defn- reply-challenge [challenge-id reply]
-  (some-> (str "http://localhost:8001/oauth/v1/challenge/" challenge-id)
+  (some-> (str "http://localhost:8001/oauth/v1/challenge-info/" challenge-id)
           (h/post {:body reply
                    :content-type :json})
           :body
@@ -49,7 +49,8 @@
         (let [response (if (= user-id password)
                          (accept-challenge challenge-id)
                          (reject-challenge challenge-id))]
-          (r/redirect (:RedirectTo response) :see-other))))
+          (println response)
+          (r/redirect (:redirect_to response) :see-other))))
 
 (defn start []
   (-> app
